@@ -1,1 +1,2 @@
-TARGET = srf06-cc26xx
+TARGET = cc26x0-cc13x0
+BOARD = srf06/cc13x0

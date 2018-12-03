@@ -40,6 +40,8 @@
 #include "contiki.h"
 
 #include <stdio.h> /* For printf() */
+#include "dev/leds.h"/*For leds_ctl()*/
+#include "dev/battery-sensor.h"
 /*---------------------------------------------------------------------------*/
 PROCESS(hello_world_process, "Hello world process");
 AUTOSTART_PROCESSES(&hello_world_process);
@@ -52,10 +54,10 @@ PROCESS_THREAD(hello_world_process, ev, data)
 
   /* Setup a periodic timer that expires after 10 seconds. */
   etimer_set(&timer, CLOCK_SECOND * 10);
-
+  printf("hello,world,fd00::212:4b00:17b0:fbe5\n");
   while(1) {
-    printf("Hello, world\n");
-
+    //printf("Hello, world\n");
+    leds_toggle(0x06);
     /* Wait for the periodic timer to expire and then restart the timer. */
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer));
     etimer_reset(&timer);

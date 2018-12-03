@@ -41,6 +41,9 @@
 
 #if BORDER_ROUTER_CONF_WEBSERVER
 #define UIP_CONF_TCP 1
+
+//#define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_DBG
+
 #endif
 
 #endif /* PROJECT_CONF_H_ */

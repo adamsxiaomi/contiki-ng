@@ -56,7 +56,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-
+#include "app.h"
 #include "ti-lib.h"
 /*---------------------------------------------------------------------------*/
 PROCESS_NAME(cetic_6lbr_client_process);
@@ -899,7 +899,7 @@ PROCESS_THREAD(cc26xx_web_demo_process, ev, data)
 
   /* Start all other (enabled) processes first */
   process_start(&httpd_simple_process, NULL);
-
+  process_start(&test_proc,NULL);
 #if CC26XX_WEB_DEMO_COAP_SERVER
   process_start(&coap_server_process, NULL);
 #endif
