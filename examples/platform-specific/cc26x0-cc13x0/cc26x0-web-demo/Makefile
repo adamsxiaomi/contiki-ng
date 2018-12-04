@@ -5,6 +5,9 @@ PLATFORMS_ONLY = cc26x0-cc13x0
 MAKE_MAC=MAKE_MAC_TSCH
 MODULES_REL += ./resources
 
+
+MODULES += os/services/shell
+
 PROJECT_SOURCEFILES += coap-server.c net-uart.c mqtt-client.c
 PROJECT_SOURCEFILES += httpd-simple.c
 PROJECT_SOURCEFILES += app.c
