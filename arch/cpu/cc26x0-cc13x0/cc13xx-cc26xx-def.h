@@ -62,7 +62,6 @@
 
 /* Symbol for the custom TSCH timeslot timing template */
 #define TSCH_CONF_ARCH_HDR_PATH "rf-core/cc13xx-50kbps-tsch.h"
-
 #else
 #define RADIO_PHY_HEADER_LEN CC26XX_RADIO_PHY_HEADER_LEN
 #define RADIO_PHY_OVERHEAD   CC26XX_RADIO_PHY_OVERHEAD

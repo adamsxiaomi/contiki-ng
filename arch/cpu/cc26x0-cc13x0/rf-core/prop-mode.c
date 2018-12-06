@@ -306,7 +306,7 @@ get_channel(void)
   uint32_t freq_khz;
 
   freq_khz = smartrf_settings_cmd_fs.frequency * 1000;
-
+  PRINTF("freq1=%ld\r\n",freq_khz);
   /*
    * For some channels, fractFreq * 1000 / 65536 will return 324.99xx.
    * Casting the result to uint32_t will truncate decimals resulting in the
@@ -314,7 +314,7 @@ get_channel(void)
    * positive integer round up.
    */
   freq_khz += (((smartrf_settings_cmd_fs.fractFreq * 1000) + 65535) / 65536);
-
+  PRINTF("freq2=%ld\r\n",freq_khz);
   return (freq_khz - DOT_15_4G_CHAN0_FREQUENCY) / DOT_15_4G_CHANNEL_SPACING;
 }
 /*---------------------------------------------------------------------------*/

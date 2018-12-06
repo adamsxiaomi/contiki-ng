@@ -32,7 +32,6 @@
 
 /**
  * \file
- *         IEEE 802.15.4 TSCH timeslot timings
  * \author
  *         Simon Duquennoy <simon.duquennoy@ri.se>
  *

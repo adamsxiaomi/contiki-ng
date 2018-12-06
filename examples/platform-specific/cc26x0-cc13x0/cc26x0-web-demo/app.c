@@ -21,7 +21,7 @@ ctimer_callback(void *ptr)
   sys_time++;
   if(tsch_is_associated!=0&&join_time==0){
     join_time = sys_time;
-    printf("join_time=%ld\n",join_time);
+
   }
  // printf("CTimer callback called\n");
 }
@@ -41,6 +41,7 @@ PROCESS_THREAD(test_proc, ev, data)
   printf("Compile Time = %s %s\n",__DATE__,__TIME__);
   printf("auto:adams\n");
   printf("version:v0.1\n");
+  printf( "TSCH status:\n");
 //  NETSTACK_ROUTING.root_start();
 //  tsch_set_coordinator(1);  
   //add your code
@@ -50,33 +51,7 @@ PROCESS_THREAD(test_proc, ev, data)
     PROCESS_WAIT_EVENT();
     if(etimer_expired(&et)){
     last_rssi=sicslowpan_get_last_rssi();
-//    packet_rssi = packetbuf_attr(PACKETBUF_ATTR_RSSI);
     printf("[%ld]last rssi=%ddbm,packet_rssi=%ddbm\n",sys_time,last_rssi,packet_rssi);
-
-/*
-     * Update all energest times. Should always be called before energest
-     * times are read.
-     */
-/*    energest_flush();
-
-    printf("\nEnergest:\n");
-    printf(" CPU          %4lus LPM      %4lus DEEP LPM %4lus  Total time %lus\n",
-           to_seconds(energest_type_time(ENERGEST_TYPE_CPU)),
-           to_seconds(energest_type_time(ENERGEST_TYPE_LPM)),
-           to_seconds(energest_type_time(ENERGEST_TYPE_DEEP_LPM)),
-           to_seconds(ENERGEST_GET_TOTAL_TIME()));
-    printf(" Radio LISTEN %4lus TRANSMIT %4lus OFF      %4lus\n",
-           to_seconds(energest_type_time(ENERGEST_TYPE_LISTEN)),
-           to_seconds(energest_type_time(ENERGEST_TYPE_TRANSMIT)),
-           to_seconds(ENERGEST_GET_TOTAL_TIME()
-                      - energest_type_time(ENERGEST_TYPE_TRANSMIT)
-                      - energest_type_time(ENERGEST_TYPE_LISTEN)));
-*/    
-//    ieee_addr_cpy_to(addr,10);
-//    addr[0]=0xfd;
-//    printf("ieee addr=");
-
-//    printf("assoiiated_time=%ld\n",sys_time);
     etimer_restart(&et);
     }
 }  
