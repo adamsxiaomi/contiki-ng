@@ -5,17 +5,17 @@
 #include "net/ipv6/simple-udp.h"
 
 #include "sys/log.h"
-#define LOG_MODULE "App"
+#define LOG_MODULE "App-udp client"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
-#define WITH_SERVER_REPLY  1
+#define WITH_SERVER_REPLY  0
 #define UDP_CLIENT_PORT	8765
 #define UDP_SERVER_PORT	5678
 
 static struct simple_udp_connection udp_conn;
 
 #define START_INTERVAL		(15 * CLOCK_SECOND)
-#define SEND_INTERVAL		  (60 * CLOCK_SECOND)
+#define SEND_INTERVAL		  (3 * CLOCK_SECOND)
 
 static struct simple_udp_connection udp_conn;
 
@@ -45,12 +45,13 @@ PROCESS_THREAD(udp_client_process, ev, data)
   uip_ipaddr_t dest_ipaddr;
 
   PROCESS_BEGIN();
-
+  NETSTACK_MAC.on();
   /* Initialize UDP connection */
   simple_udp_register(&udp_conn, UDP_CLIENT_PORT, NULL,
                       UDP_SERVER_PORT, udp_rx_callback);
 
   etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
+
   while(1) {
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
 

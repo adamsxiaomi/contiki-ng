@@ -58,7 +58,9 @@
 /*******************************************************/
 /************* Other system configuration **************/
 /*******************************************************/
-
+#define STACK_CHECK_CONF_ENABLED 1
+/*add fun and line to log printf*/
+#define LOG_CONF_WITH_LOC 1
 /* Logging */
 
 #define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_INFO

@@ -45,6 +45,18 @@
 #include "net/netstack.h"
 #include "sicslowpan.h"
 #include "app.h"
+#include "sys/stack-check.h"
+#include "net/routing/routing.h"
+
+#if STACK_WATCH
+static void
+nested_function(void)
+{
+  printf("stack usage: %u permitted: %u\n",
+         stack_check_get_usage(), stack_check_get_reserved_size());
+}
+#endif
+
 /*---------------------------------------------------------------------------*/
 PROCESS(hello_world_process, "Hello world process");
 AUTOSTART_PROCESSES(&hello_world_process);
@@ -52,6 +64,7 @@ AUTOSTART_PROCESSES(&hello_world_process);
 PROCESS_THREAD(hello_world_process, ev, data)
 {
   static struct etimer timer;
+  static uint32_t join_time=0;
   PROCESS_BEGIN();
   process_start(&node_process,NULL);
   NETSTACK_MAC.on();
@@ -60,9 +73,22 @@ PROCESS_THREAD(hello_world_process, ev, data)
   printf("hello-world\r\n");
   while(1) {
     leds_toggle(0x06);
+#if STACK_WATCH
+    nested_function();
+#endif
+    join_time++;
+
+    if(NETSTACK_ROUTING.node_is_reachable())
+    {
+    	printf("join time = %ld\r\n",join_time);
+    }
+    else
+    {
+    	etimer_reset(&timer);
+    }
     /* Wait for the periodic timer to expire and then restart the timer. */
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer));
-    etimer_reset(&timer);
+
   }
 
   PROCESS_END();

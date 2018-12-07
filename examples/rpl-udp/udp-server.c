@@ -33,15 +33,14 @@
 #include "net/ipv6/simple-udp.h"
 
 #include "sys/log.h"
-#define LOG_MODULE "App"
+#define LOG_MODULE "App-udp server"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
-#define WITH_SERVER_REPLY  1
+#define WITH_SERVER_REPLY  0
 #define UDP_CLIENT_PORT	8765
 #define UDP_SERVER_PORT	5678
-
+static unsigned long packet_count=0;
 static struct simple_udp_connection udp_conn;
-
 PROCESS(udp_server_process, "UDP server");
 AUTOSTART_PROCESSES(&udp_server_process);
 /*---------------------------------------------------------------------------*/
@@ -55,6 +54,8 @@ udp_rx_callback(struct simple_udp_connection *c,
          uint16_t datalen)
 {
   unsigned count = *(unsigned *)data;
+  packet_count++;
+  LOG_INFO("packet_count=%ld\r\n",packet_count);
   LOG_INFO("Received request %u from ", count);
   LOG_INFO_6ADDR(sender_addr);
   LOG_INFO_("\n");
@@ -69,7 +70,7 @@ udp_rx_callback(struct simple_udp_connection *c,
 PROCESS_THREAD(udp_server_process, ev, data)
 {
   PROCESS_BEGIN();
-
+  NETSTACK_MAC.on();
   /* Initialize DAG root */
   NETSTACK_ROUTING.root_start();
 

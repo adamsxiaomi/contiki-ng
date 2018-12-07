@@ -46,7 +46,7 @@
 
 #define DEBUG DEBUG_PRINT
 #include "net/ipv6/uip-debug.h"
-
+#include "net/netstack.h"
 /*---------------------------------------------------------------------------*/
 PROCESS(node_process, "RPL Node");
 //AUTOSTART_PROCESSES(&node_process);
@@ -68,8 +68,10 @@ PROCESS_THREAD(node_process, ev, data)
     NETSTACK_ROUTING.root_start();
   }
   NETSTACK_MAC.on();
+
   {
     static struct etimer et;
+
     /* Print out routing tables every minute */
     etimer_set(&et, CLOCK_SECOND * 60);
     while(1) {
@@ -80,6 +82,7 @@ PROCESS_THREAD(node_process, ev, data)
       #if (UIP_SR_LINK_NUM != 0)
         PRINTF("Routing links: %u\n", uip_sr_num_nodes());
       #endif
+
       PROCESS_YIELD_UNTIL(etimer_expired(&et));
       etimer_reset(&et);
     }
