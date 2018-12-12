@@ -8,6 +8,8 @@ PLATFORMS_EXCLUDE += sky
 
 CONTIKI = ../..
 
+MAKE_MAC=MAKE_MAC_TSCH
+MODULES += os/services/shell
 include $(CONTIKI)/Makefile.identify-target
 MODULES_REL += $(TARGET)
 

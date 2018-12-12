@@ -47,6 +47,15 @@
 #ifndef UIP_MCAST6_CONF_ENGINE
 #define UIP_MCAST6_CONF_ENGINE UIP_MCAST6_ENGINE_ROLL_TM
 #endif
+#define IEEE802154_CONF_PANID 0xaaaa
+
+/* USB serial takes space, free more space elsewhere */
+#define SICSLOWPAN_CONF_FRAG 0
+#define UIP_CONF_BUFFER_SIZE 160
+
+
+/* Do not start TSCH at init, wait for NETSTACK_MAC.on() */
+#define TSCH_CONF_AUTOSTART 0
 
 /* For Imin: Use 16 over CSMA, 64 over Contiki MAC */
 #define ROLL_TM_CONF_IMIN_1         64
@@ -60,6 +69,13 @@
 
 #ifndef NBR_TABLE_CONF_MAX_NEIGHBORS
 #define NBR_TABLE_CONF_MAX_NEIGHBORS 10
+
+#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_WARN
+#define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_NONE
+#define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_NONE
+#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_WARN
+#define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_WARN
 #endif
 
 #endif /* PROJECT_CONF_H_ */

@@ -32,7 +32,7 @@
 #define PROJECT_CONF_H_
 
 
-#define IEEE802154_CONF_PANID 0xcccc
+#define IEEE802154_CONF_PANID 0xaaaa
 
 
 #ifndef WEBSERVER_CONF_CFS_CONNS

@@ -40,21 +40,13 @@
 /*******************************************************/
 /******************* Configure TSCH ********************/
 /*******************************************************/
-/* UIP_CONF_ROUTER specifies if the IPv6 node should be a router or
-   not. By default, all Contiki nodes are routers. */
-//#define UIP_CONF_ROUTER 0
 
 /* IEEE802.15.4 PANID */
-#define IEEE802154_CONF_PANID 0xaaaa
+#define IEEE802154_CONF_PANID 0xcccc
 
 /* Do not start TSCH at init, wait for NETSTACK_MAC.on() */
 #define TSCH_CONF_AUTOSTART 0
 
-#define TSCH_CONF_DEFAULT_HOPPING_SEQUENCE TSCH_HOPPING_SEQUENCE_4_4
-
-/* USB serial takes space, free more space elsewhere */
-#define SICSLOWPAN_CONF_FRAG 0
-#define UIP_CONF_BUFFER_SIZE 160
 
 #if WITH_SECURITY
 
@@ -63,27 +55,20 @@
 
 #endif /* WITH_SECURITY */
 
-/* 6TiSCH minimal schedule length.
- * Larger values result in less frequent active slots: reduces capacity and saves energy. */
-#define TSCH_SCHEDULE_CONF_DEFAULT_LENGTH 3
-
-/***************************** **************************/
+/*******************************************************/
 /************* Other system configuration **************/
 /*******************************************************/
-/*i don't know what can do is it?*/
-//#define TSCH_STATS_CONF_ON 1
-
-//#define STACK_CHECK_CONF_ENABLED 1
+#define STACK_CHECK_CONF_ENABLED 1
 /*add fun and line to log printf*/
 #define LOG_CONF_WITH_LOC 1
 /* Logging */
 
 #define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_INFO
-#define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_NONE
-#define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_NONE
-#define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_NONE
-#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_WARN
-#define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_WARN
-#define TSCH_LOG_CONF_PER_SLOT                     0
+#define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_WARN
+#define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_WARN
+#define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_WARN
+#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_DBG
+#define TSCH_LOG_CONF_PER_SLOT                     1
 
 #endif /* PROJECT_CONF_H_ */

@@ -60,7 +60,7 @@
 /* 4 channels, sequence length 16 */
 #define TSCH_HOPPING_SEQUENCE_4_16 (uint8_t[]){ 20, 26, 25, 26, 15, 15, 25, 20, 26, 15, 26, 25, 20, 15, 20, 25 }
 /* 4 channels, sequence length 4 */
-#define TSCH_HOPPING_SEQUENCE_4_4 (uint8_t[]){ 15, 25, 26, 20 }
+#define TSCH_HOPPING_SEQUENCE_4_4 (uint8_t[]){ 5, 6, 7, 8 }
 /* 2 channels, sequence length 2 */
 #define TSCH_HOPPING_SEQUENCE_2_2 (uint8_t[]){ 20, 25 }
 /* 1 channel, sequence length 1 */
