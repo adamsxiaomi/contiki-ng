@@ -53,17 +53,20 @@ udp_rx_callback(struct simple_udp_connection *c,
          const uint8_t *data,
          uint16_t datalen)
 {
+<<<<<<< HEAD
   unsigned count = *(unsigned *)data;
   packet_count++;
   LOG_INFO("packet_count=%ld\r\n",packet_count);
   LOG_INFO("Received request %u from ", count);
+=======
+  LOG_INFO("Received request '%.*s' from ", datalen, (char *) data);
+>>>>>>> 7d676ece80e446a11a0161e5d5997cf7c3ff843e
   LOG_INFO_6ADDR(sender_addr);
   LOG_INFO_("\n");
 #if WITH_SERVER_REPLY
-  LOG_INFO("Sending response %u to ", count);
-  LOG_INFO_6ADDR(sender_addr);
-  LOG_INFO_("\n");
-  simple_udp_sendto(&udp_conn, &count, sizeof(count), sender_addr);
+  /* send back the same string to the client as an echo reply */
+  LOG_INFO("Sending response.\n");
+  simple_udp_sendto(&udp_conn, data, datalen, sender_addr);
 #endif /* WITH_SERVER_REPLY */
 }
 /*---------------------------------------------------------------------------*/

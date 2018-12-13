@@ -1,2 +1,5 @@
 TARGET = cc26x0-cc13x0
+<<<<<<< HEAD
 BOARD = srf06/cc13x0
+=======
+>>>>>>> 7d676ece80e446a11a0161e5d5997cf7c3ff843e
