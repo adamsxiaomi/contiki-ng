@@ -55,6 +55,8 @@
 
 uint8_t *nullnet_buf;
 uint16_t nullnet_len;
+linkaddr_t test_dest_addr =         {{ 0 }};
+
 static nullnet_input_callback current_callback = NULL;
 /*--------------------------------------------------------------------*/
 static void

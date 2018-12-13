@@ -57,7 +57,7 @@ for non-IPv6 scenarios.
 */
 extern uint8_t *nullnet_buf;
 extern uint16_t nullnet_len;
-
+extern linkaddr_t test_dest_addr;
 /**
  * Function prototype for NullNet input callback
 */

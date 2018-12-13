@@ -42,10 +42,10 @@
 /*******************************************************/
 
 /* IEEE802.15.4 PANID */
-#define IEEE802154_CONF_PANID 0xaaaa
+#define IEEE802154_CONF_PANID 0xdddd
 
 /* Do not start TSCH at init, wait for NETSTACK_MAC.on() */
-#define TSCH_CONF_AUTOSTART 1
+#define TSCH_CONF_AUTOSTART 0
 
 #define TSCH_CONF_DEFAULT_HOPPING_SEQUENCE TSCH_HOPPING_SEQUENCE_4_4
 
@@ -75,13 +75,12 @@
 #define LOG_CONF_WITH_LOC 1
 /* Logging */
 
-#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_ERR
-/*#define LOG_CONF_LEVEL_RPL                       LOG_LEVEL_WARN
+#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_WARN
 #define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_WARN
 #define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_WARN
 #define TSCH_LOG_CONF_PER_SLOT                     0
-*/
+
 #endif /* PROJECT_CONF_H_ */
