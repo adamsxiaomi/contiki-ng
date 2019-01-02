@@ -52,11 +52,12 @@
 #include "mqtt-client.h"
 #include "coap-server.h"
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-#include "app.h"
+
 #include "ti-lib.h"
 /*---------------------------------------------------------------------------*/
 PROCESS_NAME(cetic_6lbr_client_process);
@@ -234,8 +235,8 @@ save_config()
 static void
 load_config()
 {
+	/*
 #if BOARD_SENSORTAG || BOARD_LAUNCHPAD
-  /* Read from flash into a temp buffer */
   cc26xx_web_demo_config_t tmp_cfg;
   cc26xx_web_demo_sensor_reading_t *reading = NULL;
 
@@ -272,6 +273,7 @@ load_config()
     }
   }
 #endif
+*/
 }
 /*---------------------------------------------------------------------------*/
 /* Don't start everything here, we need to dictate order of initialisation */
@@ -899,7 +901,7 @@ PROCESS_THREAD(cc26xx_web_demo_process, ev, data)
 
   /* Start all other (enabled) processes first */
   process_start(&httpd_simple_process, NULL);
-  process_start(&test_proc,NULL);
+
 #if CC26XX_WEB_DEMO_COAP_SERVER
   process_start(&coap_server_process, NULL);
 #endif

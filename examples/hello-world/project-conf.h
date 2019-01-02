@@ -37,38 +37,27 @@
 
 
 
-/*******************************************************/
-/******************* Configure TSCH ********************/
-/*******************************************************/
 
 /* IEEE802.15.4 PANID */
 #define IEEE802154_CONF_PANID 0xcccc
-
-/* Do not start TSCH at init, wait for NETSTACK_MAC.on() */
-#define TSCH_CONF_AUTOSTART 0
-
-
-#if WITH_SECURITY
-
-/* Enable security */
-#define LLSEC802154_CONF_ENABLED 1
-
-#endif /* WITH_SECURITY */
+#define IEEE802154_CONF_DEFAULT_CHANNEL 5
 
 /*******************************************************/
 /************* Other system configuration **************/
 /*******************************************************/
-#define STACK_CHECK_CONF_ENABLED 1
-/*add fun and line to log printf*/
-#define LOG_CONF_WITH_LOC 1
-/* Logging */
 
-#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_INFO
+/* Logging */
+/*
+#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_WARN
 #define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_WARN
 #define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_WARN
 #define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_WARN
-#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_INFO
-#define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_DBG
-#define TSCH_LOG_CONF_PER_SLOT                     1
+#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_WARN
+#define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_WARN
+*/
+//#define RPL_CONF_DEFAULT_LIFETIME 3
+/*#define RPL_CONF_DIS_INTERVAL 100
+#define RPL_CONF_PROBING_INTERVAL (50 * CLOCK_SECOND)
+*/
 
 #endif /* PROJECT_CONF_H_ */

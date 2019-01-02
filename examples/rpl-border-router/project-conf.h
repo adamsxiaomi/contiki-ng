@@ -32,7 +32,9 @@
 #define PROJECT_CONF_H_
 
 
+/* IEEE802.15.4 PANID */
 #define IEEE802154_CONF_PANID 0xaaaa
+#define IEEE802154_CONF_DEFAULT_CHANNEL 3
 
 
 #ifndef WEBSERVER_CONF_CFS_CONNS
@@ -46,7 +48,6 @@
 #if BORDER_ROUTER_CONF_WEBSERVER
 #define UIP_CONF_TCP 1
 
-//#define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_DBG
 
 #endif
 

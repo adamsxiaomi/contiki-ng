@@ -118,7 +118,7 @@ struct routing_driver {
   */
   void (* local_repair)(const char *str);
   /**
-   * Removes all extension headers that pertain to the routing protocol.
+   * Removes all extension headers that pHertain to the routing protocol.
   */
   void (* ext_header_remove)(void);
   /**

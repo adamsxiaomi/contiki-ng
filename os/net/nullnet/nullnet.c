@@ -70,9 +70,13 @@ static void
 input(void)
 {
   if(current_callback != NULL) {
+	 int last_rssi;
     LOG_INFO("received %u bytes from ", packetbuf_datalen());
     LOG_INFO_LLADDR(packetbuf_addr(PACKETBUF_ADDR_SENDER));
     LOG_INFO_("\n");
+    last_rssi = packetbuf_attr(PACKETBUF_ATTR_RSSI);
+
+    printf("last_rssi=%d dbm\r\n",last_rssi);
     current_callback(packetbuf_dataptr(), packetbuf_datalen(),
       packetbuf_addr(PACKETBUF_ADDR_SENDER), packetbuf_addr(PACKETBUF_ADDR_RECEIVER));
   }

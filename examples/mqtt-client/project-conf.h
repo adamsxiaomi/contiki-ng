@@ -55,7 +55,7 @@
 #ifndef MQTT_CLIENT_CONF_ORG_ID
 #define MQTT_CLIENT_CONF_ORG_ID "quickstart"
 #endif
-
+#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_INFO
 /*
  * The MQTT username.
  *

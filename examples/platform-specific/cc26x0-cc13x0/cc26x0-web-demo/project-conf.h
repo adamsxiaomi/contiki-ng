@@ -32,18 +32,18 @@
 #define PROJECT_CONF_H_
 /*---------------------------------------------------------------------------*/
 /* Change to match your configuration */
-#define IEEE802154_CONF_PANID            0xaaaa
-#define IEEE802154_CONF_DEFAULT_CHANNEL       0
-#define RF_BLE_CONF_ENABLED                   0
+#define IEEE802154_CONF_PANID            0xcccc
+#define IEEE802154_CONF_DEFAULT_CHANNEL       3
+#define RF_BLE_CONF_ENABLED                   1
 /*---------------------------------------------------------------------------*/
 
 /* Enable TCP */
 #define UIP_CONF_TCP 1
 
 /* Enable/Disable Components of this Demo */
-#define CC26XX_WEB_DEMO_CONF_MQTT_CLIENT      0 
+#define CC26XX_WEB_DEMO_CONF_MQTT_CLIENT      1
 #define CC26XX_WEB_DEMO_CONF_6LBR_CLIENT      ROUTING_CONF_RPL_CLASSIC
-#define CC26XX_WEB_DEMO_CONF_COAP_SERVER      0
+#define CC26XX_WEB_DEMO_CONF_COAP_SERVER      1
 #define CC26XX_WEB_DEMO_CONF_NET_UART         1
 
 /*
@@ -65,24 +65,15 @@
 /*---------------------------------------------------------------------------*/
 /* Enable the ROM bootloader */
 #define CCXXWARE_CONF_ROM_BOOTLOADER_ENABLE   1
-#define TSCH_CONF_EB_PERIOD     (1 * CLOCK_SECOND)
-#define TSCH_CONF_MAX_EB_PERIOD (1 * CLOCK_SECOND)
 /*---------------------------------------------------------------------------*/
 /*
  * Shrink the size of the uIP buffer, routing table and ND cache.
  * Set the TCP MSS
  */
-#define UIP_CONF_BUFFER_SIZE                330
-#define NETSTACK_MAX_ROUTE_ENTRIES            4
-#define NBR_TABLE_CONF_MAX_NEIGHBORS          4
+#define UIP_CONF_BUFFER_SIZE                500
+#define NETSTACK_MAX_ROUTE_ENTRIES            5
+#define NBR_TABLE_CONF_MAX_NEIGHBORS          5
 #define UIP_CONF_TCP_MSS                    128
-//#define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_DBG
-//#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_DBG
-//#define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_DBG
-//#define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_DBG
-//#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_DBG
-//#define TSCH_LOG_CONF_PER_SLOT                     1
-//#define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_DBG
 /*---------------------------------------------------------------------------*/
 #endif /* PROJECT_CONF_H_ */
 /*---------------------------------------------------------------------------*/

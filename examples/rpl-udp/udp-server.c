@@ -31,6 +31,7 @@
 #include "net/routing/routing.h"
 #include "net/netstack.h"
 #include "net/ipv6/simple-udp.h"
+#include "packetbuf.h"
 
 #include "sys/log.h"
 #define LOG_MODULE "App-udp server"
@@ -39,8 +40,67 @@
 #define WITH_SERVER_REPLY  0
 #define UDP_CLIENT_PORT	8765
 #define UDP_SERVER_PORT	5678
-static unsigned long packet_count=0;
 static struct simple_udp_connection udp_conn;
+
+typedef struct SENSOR
+{
+	unsigned char shortAaar;
+	uip_ipaddr_t  uipAddr;
+	int rssi;
+	unsigned long receive_count;
+}sensor_t;
+static unsigned char sensor_count=0;
+static sensor_t sensor_info[50];
+unsigned char isNodeInList(const uip_ipaddr_t *uipAddr)
+{
+	unsigned char i=0;
+	while(i < 50)
+	{
+		if(uip_ip6addr_cmp(uipAddr,&sensor_info[i].uipAddr))
+		{
+			//LOG_INFO("node %d already in the list\r\n",sensor_info[i].shortAaar);
+	        return sensor_info[i].shortAaar;
+		}
+		else
+		{
+		    i++;
+		}
+	}
+	LOG_INFO("node is not in the list\r\n");
+	return 0xff;
+}
+unsigned char addNodeToList(const uip_ipaddr_t *uipAddr)
+{
+	if(isNodeInList(uipAddr) == 0xff)
+	{
+		uip_ip6addr_copy(&sensor_info[sensor_count].uipAddr,uipAddr);
+		sensor_info[sensor_count].shortAaar = sensor_count;
+		sensor_count++;
+		LOG_INFO("add %d sensor to the list\r\n",sensor_info[sensor_count].shortAaar);
+		return 1;
+	}
+	else
+	{
+		//LOG_INFO("node already in the list\r\n");
+		return 0;
+	}
+}
+unsigned char addRevCount(const uip_ipaddr_t *uipAddr)
+{
+	unsigned char shortAddr = 0;
+	shortAddr = isNodeInList(uipAddr);
+    if(shortAddr<50)
+    {
+    	sensor_info[shortAddr].receive_count++;
+    	LOG_INFO("rev %ld packet from node %d \r\n",sensor_info[shortAddr].receive_count,shortAddr);
+    	return 1;
+    }
+	else
+	{
+		return 0;
+	}
+
+}
 PROCESS(udp_server_process, "UDP server");
 AUTOSTART_PROCESSES(&udp_server_process);
 /*---------------------------------------------------------------------------*/
@@ -54,11 +114,24 @@ udp_rx_callback(struct simple_udp_connection *c,
          uint16_t datalen)
 {
   unsigned count = *(unsigned *)data;
-  packet_count++;
-  LOG_INFO("packet_count=%ld\r\n",packet_count);
+  unsigned char shortAddr = 0;
+  int last_rssi;
+  shortAddr = isNodeInList(sender_addr);
   LOG_INFO("Received request %u from ", count);
   LOG_INFO_6ADDR(sender_addr);
   LOG_INFO_("\n");
+  last_rssi = (signed short)packetbuf_attr(PACKETBUF_ATTR_RSSI);
+  LOG_INFO("node %d last_rssi=%d dbm  number of node = %d    ",shortAddr,last_rssi,sensor_count);
+  LOG_INFO_LLADDR(packetbuf_addr(PACKETBUF_ADDR_SENDER));
+  LOG_INFO_("\r\n");
+  if(shortAddr > 50)//node is not in the list
+  {
+	  addNodeToList(sender_addr);
+  }
+  else
+  {
+	  addRevCount(sender_addr);
+  }
 #if WITH_SERVER_REPLY
   LOG_INFO("Sending response %u to ", count);
   LOG_INFO_6ADDR(sender_addr);
@@ -70,7 +143,6 @@ udp_rx_callback(struct simple_udp_connection *c,
 PROCESS_THREAD(udp_server_process, ev, data)
 {
   PROCESS_BEGIN();
-  NETSTACK_MAC.on();
   /* Initialize DAG root */
   NETSTACK_ROUTING.root_start();
 

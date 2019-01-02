@@ -437,7 +437,7 @@ rf_radio_setup()
   rfc_CMD_RADIO_SETUP_t cmd;
 
   rf_switch_select_path(RF_SWITCH_PATH_2_4GHZ);
-
+  PRINTF("xxxxxxx\r\n");
   /* Create radio setup command */
   rf_core_init_radio_op((rfc_radioOp_t *)&cmd, sizeof(cmd), CMD_RADIO_SETUP);
 
@@ -446,7 +446,6 @@ rf_radio_setup()
   cmd.config.frontEndMode = RF_CORE_RADIO_SETUP_FRONT_END_MODE;
   cmd.config.biasMode = RF_CORE_RADIO_SETUP_BIAS_MODE;
   cmd.mode = 1;
-
   /* Send Radio setup to RF Core */
   if(rf_core_send_cmd((uint32_t)&cmd, &cmd_status) != RF_CORE_CMD_OK) {
     PRINTF("rf_radio_setup: CMD_RADIO_SETUP, CMDSTA=0x%08lx, status=0x%04x\n",

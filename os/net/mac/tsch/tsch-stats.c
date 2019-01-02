@@ -163,7 +163,7 @@ tsch_stats_sample_rssi(void)
     is_free = (((int)value <= TSCH_STATS_BUSY_CHANNEL_RSSI) ? 1 : 0) * TSCH_STATS_BINARY_SCALING_FACTOR;
 
     /* LOG_DBG("noise RSSI on %u: %d\n", measurement_channel, (int)value); */
-
+    printf("noise RSSI on %u: %d\n", measurement_channel, (int)value);
     TSCH_STATS_EWMA_UPDATE(tsch_stats.noise_rssi[index],
         TSCH_STATS_TRANSFORM((int)value, TSCH_STATS_RSSI_SCALING_FACTOR));
 

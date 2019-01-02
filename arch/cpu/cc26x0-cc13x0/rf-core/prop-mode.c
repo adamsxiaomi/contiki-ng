@@ -374,7 +374,6 @@ set_tx_power(radio_value_t power)
        * has returned
        */
       tx_power_current = &TX_POWER_DRIVER[i];
-
       return;
     }
   }
@@ -385,7 +384,6 @@ prop_div_radio_setup(void)
 {
   uint32_t cmd_status;
   rfc_radioOp_t *cmd = (rfc_radioOp_t *)&smartrf_settings_cmd_prop_radio_div_setup;
-
   rf_switch_select_path(RF_SWITCH_PATH_SUBGHZ);
 
   /* Adjust loDivider depending on the selected band */
@@ -816,7 +814,6 @@ read_frame(void *buf, unsigned short buf_len)
   uint8_t *data_ptr = &entry->data;
   int len = 0;
   uint32_t rat_timestamp;
-
   /* wait for entry to become finished */
   rtimer_clock_t t0 = RTIMER_NOW();
   while(entry->status == DATA_ENTRY_STATUS_BUSY
