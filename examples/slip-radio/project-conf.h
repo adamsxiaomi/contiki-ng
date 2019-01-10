@@ -30,8 +30,8 @@
 #ifndef PROJECT_CONF_H_
 #define PROJECT_CONF_H_
 /* IEEE802.15.4 PANID */
-#define IEEE802154_CONF_PANID 0xaaaa
-#define IEEE802154_CONF_DEFAULT_CHANNEL 3
+#define IEEE802154_CONF_PANID 0xcccc
+#define IEEE802154_CONF_DEFAULT_CHANNEL 5
 /*---------------------------------------------------------------------------*/
 #define UIP_CONF_ROUTER                 0
 

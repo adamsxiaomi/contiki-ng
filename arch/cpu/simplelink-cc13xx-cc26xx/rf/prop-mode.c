@@ -514,7 +514,7 @@ on(void)
   if(res != RF_RESULT_OK) {
     return RF_RESULT_ERROR;
   }
-
+  printf("radio is on\n");
   prop_radio.rf_is_on = true;
   return RF_RESULT_OK;
 }
@@ -528,7 +528,7 @@ off(void)
   }
 
   rf_yield();
-
+  printf("radio is off\n");
   prop_radio.rf_is_on = false;
   return RF_RESULT_OK;
 }

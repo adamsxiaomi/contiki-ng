@@ -40,118 +40,28 @@
 #include "contiki.h"
 
 #include <stdio.h> /* For printf() */
-#include "dev/leds.h"/*For leds_ctl()*/
-#include "dev/battery-sensor.h"
 #include "net/netstack.h"
 #include "sicslowpan.h"
-#include "app.h"
-#include "sys/stack-check.h"
 #include "net/routing/routing.h"
-#include "batmon-sensor.h"
-#define CC26XX_WEB_DEMO_CONVERTED_LEN        12
-typedef struct cc26xx_web_demo_sensor_reading {
-  struct cc26xx_web_demo_sensor_reading *next;
-  int raw;
-  int last;
-  const char *descr;
-  const char *xml_element;
-  const char *form_field;
-  char *units;
-  uint8_t type;
-  uint8_t publish;
-  uint8_t changed;
-  char converted[CC26XX_WEB_DEMO_CONVERTED_LEN];
-} cc26xx_web_demo_sensor_reading_t;
-/*---------------------------------------------------------------------------*/
-/* A cache of sensor values. Updated periodically or upon key press */
-LIST(sensor_list);
-/*---------------------------------------------------------------------------*/
-/* The objects representing sensors used in this demo */
-#define DEMO_SENSOR(name, type, descr, xml_element, form_field, units) \
-  cc26xx_web_demo_sensor_reading_t name##_reading = \
-  { NULL, 0, 0, descr, xml_element, form_field, units, type, 1, 1 }
-#define CC26XX_WEB_DEMO_SENSOR_BATMON_TEMP   0
-#define CC26XX_WEB_DEMO_SENSOR_BATMON_VOLT   1
-#define CC26XX_WEB_DEMO_UNIT_TEMP     "C"
-#define CC26XX_WEB_DEMO_UNIT_VOLT     "mV"
-/* CC26xx sensors */
-DEMO_SENSOR(batmon_temp, CC26XX_WEB_DEMO_SENSOR_BATMON_TEMP,
-            "Battery Temp", "battery-temp", "batmon_temp",
-            CC26XX_WEB_DEMO_UNIT_TEMP);
-DEMO_SENSOR(batmon_volt, CC26XX_WEB_DEMO_SENSOR_BATMON_VOLT,
-            "Battery Volt", "battery-volt", "batmon_volt",
-            CC26XX_WEB_DEMO_UNIT_VOLT);
-static void
-init_sensors(void)
-{
 
-  list_add(sensor_list, &batmon_temp_reading);
-  list_add(sensor_list, &batmon_volt_reading);
 
-#if CC26XX_WEB_DEMO_ADC_DEMO
-  list_add(sensor_list, &adc_dio23_reading);
-#endif
 
-  SENSORS_ACTIVATE(batmon_sensor);
-
-#if BOARD_SENSORTAG
-  list_add(sensor_list, &bmp_pres_reading);
-  list_add(sensor_list, &bmp_temp_reading);
-
-  list_add(sensor_list, &tmp_obj_reading);
-  list_add(sensor_list, &tmp_amb_reading);
-
-  list_add(sensor_list, &opt_reading);
-
-  list_add(sensor_list, &hdc_hum_reading);
-  list_add(sensor_list, &hdc_temp_reading);
-
-  list_add(sensor_list, &mpu_acc_x_reading);
-  list_add(sensor_list, &mpu_acc_y_reading);
-  list_add(sensor_list, &mpu_acc_z_reading);
-  list_add(sensor_list, &mpu_gyro_x_reading);
-  list_add(sensor_list, &mpu_gyro_y_reading);
-  list_add(sensor_list, &mpu_gyro_z_reading);
-#endif
-}
-static void
-get_sync_sensor_readings(void)
-{
-  int value;
-
-  printf("-----------------------------------------\n");
-
-  value = batmon_sensor.value(BATMON_SENSOR_TYPE_TEMP);
-  printf("Bat: Temp=%d C\n", value);
-
-  value = batmon_sensor.value(BATMON_SENSOR_TYPE_VOLT);
-  printf("Bat: Volt=%d mV\n", (value * 125) >> 5);
-  return;
-}
-/*---------------------------------------------------------------------------*/
 PROCESS(hello_world_process, "Hello world process");
 AUTOSTART_PROCESSES(&hello_world_process);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(hello_world_process, ev, data)
 {
   static struct etimer timer;
-
+  //int i = 0;
   PROCESS_BEGIN();
-  init_sensors();
-
-  /* Setup a periodic timer that expires after 10 seconds. */
-  etimer_set(&timer, CLOCK_SECOND * 10);
-
-  while(1) {
-
-	get_sync_sensor_readings();
-    printf("Hello, world\n");
-
-    /* Wait for the periodic timer to expire and then restart the timer. */
-    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer));
-    etimer_reset(&timer);
+  etimer_set(&timer, 60 * CLOCK_SECOND);
+  while(1)
+  {
+	    printf("Hello, world\n");
+	    /* Wait for the periodic timer to expire and then restart the timer. */
+	    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer));
+	    etimer_reset(&timer);
   }
-
   PROCESS_END();
 }
 /*---------------------------------------------------------------------------*/

@@ -154,6 +154,10 @@ watchdog_stop(void)
 void
 watchdog_reboot(void)
 {
+  printf("reseting...........\n");
+  SysCtrlSystemReset();
+#define HAL_SYSTEM_RESET(...) *((uint32_t *)0x40082270) = 1
+HAL_SYSTEM_RESET();
   watchdog_start();
   while(1);
 }

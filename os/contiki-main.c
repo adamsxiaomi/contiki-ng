@@ -57,6 +57,8 @@
 
 #include <stdio.h>
 #include <stdint.h>
+//#include "ti-lib.h"
+#include "lpm.h"
 /*---------------------------------------------------------------------------*/
 /* Log configuration */
 #include "sys/log.h"
@@ -102,7 +104,6 @@ main(void)
 #else /* MAC_CONF_WITH_TSCH */
   LOG_INFO("- 802.15.4 Default channel: %u\n", IEEE802154_DEFAULT_CHANNEL);
 #endif /* MAC_CONF_WITH_TSCH */
-
   LOG_INFO("Node ID: %u\n", node_id);
   LOG_INFO("Link-layer address: ");
   LOG_INFO_LLADDR(&linkaddr_node_addr);
@@ -151,7 +152,11 @@ main(void)
   /* Initialize the channel selection module */
   tsch_cs_adaptations_init();
 #endif /* BUILD_WITH_TSCH_CS */
-
+  /*int i;
+  for(i=0;i<32;i++)
+  lpm_pin_set_default_state(i);
+  */
+  //lpm_shutdown(IOID_5,IOC_IOPULL_DOWN,IOC_WAKE_ON_LOW);
   autostart_start(autostart_processes);
 
   watchdog_start();
@@ -165,7 +170,6 @@ main(void)
       r = process_run();
       watchdog_periodic();
     } while(r > 0);
-
     platform_idle();
   }
 #endif

@@ -78,7 +78,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 /*---------------------------------------------------------------------------*/
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #define PRINTF(...) printf(__VA_ARGS__)
 #else
@@ -983,6 +983,7 @@ on(void)
    * If we are in the middle of a BLE operation, we got called by ContikiMAC
    * from within an interrupt context. Abort, but pretend everything is OK.
    */
+	//printf("on: We were on\n");
   if(rf_ble_is_active() == RF_BLE_ACTIVE) {
     return RF_CORE_CMD_OK;
   }
@@ -1070,7 +1071,7 @@ off(void)
 {
   int i;
   rfc_dataEntry_t *entry;
-
+  PRINTF("off: We were off\n");
   /*
    * If we are in the middle of a BLE operation, we got called by ContikiMAC
    * from within an interrupt context. Abort, but pretend everything is OK.

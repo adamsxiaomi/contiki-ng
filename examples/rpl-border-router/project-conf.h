@@ -33,10 +33,43 @@
 
 
 /* IEEE802.15.4 PANID */
-#define IEEE802154_CONF_PANID 0xaaaa
-#define IEEE802154_CONF_DEFAULT_CHANNEL 3
+#define IEEE802154_CONF_PANID 0xcccc
+#define IEEE802154_CONF_DEFAULT_CHANNEL 5
 
+#define RPL_CONF_DEFAULT_LIFETIME 10
 
+#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_INFO
+
+#define RPL_CONF_WITH_DAO_ACK                 0
+/*
+#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_INFO
+
+#define LOG_CONF_LEVEL_MAIN                      LOG_LEVEL_DBG
+*/
+//#define RPL_CONF_DEFAULT_LIFETIME_UNIT 5
+
+//
+
+//#define RPL_CONF_DAO_DELAY  (CLOCK_SECOND * 1)
+//#define RPL_CONF_DAO_RETRANSMISSION_TIMEOUT (CLOCK_SECOND * 1)
+//#define RPL_CONF_TRICKLE_REFRESH_DAO_ROUTES 1
+//#define RPL_CONF_DIO_INTERVAL_MIN 0
+
+//#define RPL_CONF_DIS_INTERVAL 10
+/*
+#define RPL_CONF_DAO_DELAY        (1 * CLOCK_SECOND)
+
+#define RPL_CONF_DELAY_BEFORE_LEAVING  (1 * CLOCK_SECOND)
+#define RPL_CONF_DEFAULT_LIFETIME_UNIT 10
+#define RPL_CONF_DEFAULT_LIFETIME 5
+#define RPL_CONF_DIS_INTERVAL (10 * CLOCK_SECOND)
+#define RPL_CONF_PROBING_INTERVAL (10 * CLOCK_SECOND)
+*/
 #ifndef WEBSERVER_CONF_CFS_CONNS
 #define WEBSERVER_CONF_CFS_CONNS 2
 #endif
@@ -48,7 +81,15 @@
 #if BORDER_ROUTER_CONF_WEBSERVER
 #define UIP_CONF_TCP 1
 
-
 #endif
 
+/*
+#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_DBG
+#define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_INFO
+
+*/
 #endif /* PROJECT_CONF_H_ */

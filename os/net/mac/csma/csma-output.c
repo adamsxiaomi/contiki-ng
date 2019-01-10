@@ -49,7 +49,7 @@
 #include "net/netstack.h"
 #include "lib/list.h"
 #include "lib/memb.h"
-
+#include "stdio.h"
 /* Log configuration */
 #include "sys/log.h"
 #define LOG_MODULE "CSMA"
@@ -165,7 +165,7 @@ send_one_packet(void *ptr)
 {
   int ret;
   int last_sent_ok = 0;
-
+  NETSTACK_RADIO.on();
   packetbuf_set_addr(PACKETBUF_ADDR_SENDER, &linkaddr_node_addr);
   packetbuf_set_attr(PACKETBUF_ATTR_MAC_ACK, 1);
 
@@ -238,6 +238,7 @@ send_one_packet(void *ptr)
   }
 
   packet_sent(ptr, ret, 1);
+  NETSTACK_RADIO.off();
   return last_sent_ok;
 }
 /*---------------------------------------------------------------------------*/

@@ -71,7 +71,6 @@ PROCESS_THREAD(node_process, ev, data)
 
   {
     static struct etimer et;
-
     /* Print out routing tables every minute */
     etimer_set(&et, CLOCK_SECOND * 60);
     while(1) {

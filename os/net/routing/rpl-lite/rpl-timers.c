@@ -65,7 +65,7 @@ rpl_nbr_t *RPL_PROBING_SELECT_FUNC(void);
 clock_time_t RPL_PROBING_DELAY_FUNC(void);
 #endif /* RPL_PROBING_DELAY_FUNC */
 
-#define PERIODIC_DELAY_SECONDS     60
+#define PERIODIC_DELAY_SECONDS     10
 #define PERIODIC_DELAY             ((PERIODIC_DELAY_SECONDS) * CLOCK_SECOND)
 
 static void handle_dis_timer(void *ptr);

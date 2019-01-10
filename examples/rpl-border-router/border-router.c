@@ -34,6 +34,21 @@
 
 /* Log configuration */
 #include "sys/log.h"
+#include "rpl-dag-root.h"
+
+
+#include "contiki.h"
+#include "contiki-net.h"
+
+#include "net/routing/rpl-lite/rpl.h"
+#include "net/ipv6/uip-ds6-route.h"
+#include "net/ipv6/uip-sr.h"
+
+/* Log configuration */
+#include "sys/log.h"
+#include "stdlib.h"
+
+#include <string.h>
 #define LOG_MODULE "RPL BR"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
@@ -44,6 +59,8 @@ AUTOSTART_PROCESSES(&contiki_ng_br);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(contiki_ng_br, ev, data)
 {
+  static struct etimer timer;
+  static long unsigned int second;
   PROCESS_BEGIN();
 
 #if BORDER_ROUTER_CONF_WEBSERVER
@@ -51,5 +68,41 @@ PROCESS_THREAD(contiki_ng_br, ev, data)
   process_start(&webserver_nogui_process, NULL);
 #endif /* BORDER_ROUTER_CONF_WEBSERVER */
   LOG_INFO("Contiki-NG Border Router started\n");
+
+  /* Setup a periodic timer that expires after 10 seconds. */
+  etimer_set(&timer, CLOCK_SECOND * 10);
+  while(1) {
+	  second++;
+	  printf("root links(%lu second):\r\n",second);
+	  if(rpl_dag_root_is_root()) {
+	    if(uip_sr_num_nodes() > 0) {
+	      uip_sr_node_t *link;
+	      /* Our routing links */
+	      LOG_INFO("links: %u routing links in total (%s)\n", uip_sr_num_nodes(),"adamsxiaomi");
+	      link = uip_sr_node_head();
+          system("echo \"route links\" >> filename");
+	      while(link != NULL) {
+	        char buf[100];
+		    char buff[1000]={"echo \"links:"};
+		    //strcat(buff,"\"");
+	        uip_sr_link_snprint(buf, sizeof(buf), link);
+	        LOG_INFO("links: %s\n", buf);
+	        strcat(buff,buf);
+	        link = uip_sr_node_next(link);
+		    strcat(buff,"\" >> filename1");
+		    system(buff);
+	      }
+	      system("echo \"links : end of list\" >> filename");
+	      LOG_INFO("links: end of list\n");
+
+	    } else {
+	      LOG_INFO("No routing links\n");
+	    }
+	  }
+    /* Wait for the periodic timer to expire and then restart the timer. */
+    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer));
+    etimer_reset(&timer);
+  }
+
   PROCESS_END();
 }

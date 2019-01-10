@@ -667,6 +667,7 @@ on(void)
   }
 
   ieee_radio.rf_is_on = true;
+  printf("radio is on\n");
   return RF_RESULT_OK;
 }
 /*---------------------------------------------------------------------------*/
@@ -679,7 +680,7 @@ off(void)
   }
 
   rf_yield();
-
+  printf("radio is off\n");
   ieee_radio.rf_is_on = false;
   return RF_RESULT_OK;
 }
