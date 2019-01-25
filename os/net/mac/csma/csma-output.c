@@ -52,7 +52,11 @@
 #include "stdio.h"
 /* Log configuration */
 #include "sys/log.h"
+
 #define LOG_MODULE "CSMA"
+#if RPL_CONF_DEFAULT_LEAF_ONLY
+#include "lpm_downward.h"
+#endif
 #define LOG_LEVEL LOG_LEVEL_MAC
 
 /* Constants of the IEEE 802.15.4 standard */
@@ -159,13 +163,24 @@ backoff_period(void)
   return MAX(CLOCK_SECOND / 3125, 1);
 #endif /* CONTIKI_TARGET_COOJA */
 }
+/*
+#if BUILD_WITH_RPL_BORDER_ROUTER!=0 && #if RPL_CONF_LEAF_ONLY
+#define NAT_ON() NETSTACK_RADIO.on()
+#define NAT_OFF() NETSTACK_RADIO.off()
+#else
+#define NAT_ON()
+#define NAT_OFF()
+#endif
+*/
 /*---------------------------------------------------------------------------*/
 static int
 send_one_packet(void *ptr)
 {
   int ret;
   int last_sent_ok = 0;
+#if RPL_CONF_DEFAULT_LEAF_ONLY
   NETSTACK_RADIO.on();
+#endif
   packetbuf_set_addr(PACKETBUF_ADDR_SENDER, &linkaddr_node_addr);
   packetbuf_set_attr(PACKETBUF_ATTR_MAC_ACK, 1);
 
@@ -238,7 +253,17 @@ send_one_packet(void *ptr)
   }
 
   packet_sent(ptr, ret, 1);
-  NETSTACK_RADIO.off();
+#if RPL_CONF_DEFAULT_LEAF_ONLY
+  if(is_waiting_downward()==0)
+  {
+      NETSTACK_RADIO.off();
+  }
+  else
+  {
+	  NETSTACK_RADIO.off();
+	  NETSTACK_RADIO.on();
+  }
+#endif
   return last_sent_ok;
 }
 /*---------------------------------------------------------------------------*/

@@ -45,22 +45,42 @@
 #include "net/routing/routing.h"
 
 
-
+#include "sys/ctimer.h"
 PROCESS(hello_world_process, "Hello world process");
 AUTOSTART_PROCESSES(&hello_world_process);
+
+
+static struct ctimer downward_timer;
+//static bool radio_isOn = false;
+static void downward_timer_callback()
+{
+	printf("rev data timeout!\n");
+    ctimer_reset(&downward_timer);
+}
+
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(hello_world_process, ev, data)
 {
-  static struct etimer timer;
-  //int i = 0;
+//  static struct etimer timer;
+
   PROCESS_BEGIN();
-  etimer_set(&timer, 60 * CLOCK_SECOND);
+	printf("start rev timeout timer\n");
+
+	  printf("ctimer up\n");
+//  etimer_set(&timer, 1 * CLOCK_SECOND);
+	  ctimer_set(&downward_timer, 2 * CLOCK_SECOND, downward_timer_callback, NULL);
   while(1)
   {
-	    printf("Hello, world\n");
+//	  if(radio_isOn == false){
+//		  printf("radio on\r\n");
+//		  radio_isOn = true;
+//	  }
+
+
+	  PROCESS_YIELD();
 	    /* Wait for the periodic timer to expire and then restart the timer. */
-	    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer));
-	    etimer_reset(&timer);
+	    //PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer));
+	    //etimer_reset(&timer);
   }
   PROCESS_END();
 }

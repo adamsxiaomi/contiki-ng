@@ -58,7 +58,7 @@
 #include <stdio.h>
 #include <stdint.h>
 //#include "ti-lib.h"
-#include "lpm.h"
+//#include "lpm.h"
 /*---------------------------------------------------------------------------*/
 /* Log configuration */
 #include "sys/log.h"

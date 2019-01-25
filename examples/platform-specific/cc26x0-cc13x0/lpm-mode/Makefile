@@ -1,4 +1,4 @@
-CONTIKI_PROJECT = very-sleepy-demo
+CONTIKI_PROJECT = lpm-mode
 
 PLATFORMS_ONLY = cc26x0-cc13x0
 
@@ -10,6 +10,6 @@ MODULES += os/net/app-layer/coap
 
 PROJECT_SOURCEFILES += lpm_downward.c
 
-MODULES += os/services/simple-energest
+#MODULES += os/services/simple-energest
 CONTIKI = ../../../..
 include $(CONTIKI)/Makefile.include

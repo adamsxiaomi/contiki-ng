@@ -36,8 +36,8 @@
 
 /*---------------------------------------------------------------------------*/
 /* Change to match your configuration */
-#define IEEE802154_CONF_PANID            0xbbbb
-#define IEEE802154_CONF_DEFAULT_CHANNEL      1
+#define IEEE802154_CONF_PANID            0xcccc
+#define IEEE802154_CONF_DEFAULT_CHANNEL      5
 
 #define RPL_CONF_DEFAULT_LIFETIME 10
 /*---------------------------------------------------------------------------*/

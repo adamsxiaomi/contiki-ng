@@ -42,11 +42,11 @@
 #define IEEE802154_CONF_PANID 0xcccc
 #define IEEE802154_CONF_DEFAULT_CHANNEL 5
 //#define RPL_CONF_LEAF_ONLY 1
-#define RPL_CONF_DEFAULT_LIFETIME 10
+#define RPL_CONF_DEFAULT_LIFETIME 3
 
 #define RPL_CONF_WITH_DAO_ACK                 0
 /* Logging */
-
+/*
 #define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_INFO
 #define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_INFO
 #define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_INFO
@@ -54,6 +54,6 @@
 #define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_INFO
 #define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_INFO
 #define LOG_CONF_LEVEL_MAIN                      LOG_LEVEL_DBG
-
+*/
 
 #endif /* PROJECT_CONF_H_ */
